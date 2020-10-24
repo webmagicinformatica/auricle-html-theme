@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  auricle
+  namespace: default
+  labels:
+    app:  auricle
+spec:
+  selector:
+    matchLabels:
+      app: auricle
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app:  auricle
+    spec:
+      containers:
+      - name:  auricle
+        image:  dab8106/auricle
+        ports:
+        - containerPort:  80
